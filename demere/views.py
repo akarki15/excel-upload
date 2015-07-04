@@ -20,17 +20,15 @@ def upload():
             file = request.files[form.file.name]                  
             excel_data = read_excel(file)  
             # write the excel data to sqlite db
-            write_to_db(excel_data) 
-            # read all records from sqlite db
-            # db_data = read_all()            
-            data = ""
-            return render_template('list.html', form=form, data=data)
+            write_to_db(excel_data)               
+            return redirect(url_for(list_uploads))
     elif request.method == 'GET':
         return render_template('index.html', form=form)    
 
 @demere.route('/uploads' , methods=['GET','POST'])
 def list_uploads():
-    return render_template('list.html')
+    records = read_all()
+    return render_template('list.html', records = records)
 
 def read_excel(file):
     """ Takes file and returns dict """
@@ -80,9 +78,12 @@ def write_to_db(records):
         str_record.insert(0, None)
         print str_record
         g.db.execute('INSERT INTO entries VALUES (?,?,?,?,?,?,?)', str_record)
-        g.db.commit()
+        g.db.commit()        
+
+def read_all():
+    """ returns list of all records from sqlite db """
+    records = g.db.execute('SELECT * FROM entries')                
+    return records.fetchall()
         
-
-
 
         

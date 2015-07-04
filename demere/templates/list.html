@@ -5,12 +5,23 @@
     <div class="hero-unit">
         <h1>Image</h1>
         
-        <ul>
-        	<li>A basic Flask app structure</li>
-
- 
+        <ul>        	
+		 {% for record in records %}
+		       <li> <img src = {{record[1]}} style="width:30px;height:30px;"></li>
+		  {% endfor %}
         </ul>
         
+        
+        <div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Panel heading</div>
+
+  <!-- Table -->
+  <table class="table">
+    ...
+  </table>
+</div>
+
         
     </div>
 </div>
