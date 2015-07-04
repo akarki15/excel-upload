@@ -9,4 +9,6 @@ demere.jinja_env.globals['static'] = (
     lambda filename: url_for('static', filename = filename)
 )
 
+
+# This allows the demere app object to access the routes in view.py to be 
 from demere import views
