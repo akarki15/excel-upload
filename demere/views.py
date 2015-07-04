@@ -18,9 +18,13 @@ def upload():
             return render_template('index.html', form=form)
         else:      
             file = request.files[form.file.name]                  
-            json_data = read_excel(file)  
-            
-            return render_template('list.html', form=form, data=json_data)
+            excel_data = read_excel(file)  
+            # write the excel data to sqlite db
+            write_to_db(excel_data) 
+            # read all records from sqlite db
+            # db_data = read_all()            
+            data = ""
+            return render_template('list.html', form=form, data=data)
     elif request.method == 'GET':
         return render_template('index.html', form=form)    
 
@@ -29,15 +33,20 @@ def list_uploads():
     return render_template('list.html')
 
 def read_excel(file):
-    """ Takes file and returns json """
+    """ Takes file and returns dict """
     if file: 
         filename = file.filename
         extension = filename.split(".")[1]
         sheet = pe.get_sheet(file_type=extension, file_stream=file.read())
         data  = pe.to_dict(sheet)            
+        #skip first since it is going to be header
+        if len(data)>= 1:
+            data.pop('Series_1')
+
         for key in data:
-            print key, data[key]
-        return jsonify(data)
+            print str(key), str(data[key][0]), str(data[key][1])    
+        return data
+        
 
 # Database stuff
 
@@ -62,3 +71,18 @@ def teardown_request(exception):
     db = getattr(g, 'db', None)
     if db is not None:
         db.close()
+
+def write_to_db(records):
+    """ writes dict of records to sqlite db """
+    val_list = records.values()
+    for record in val_list:        
+        str_record = filter( lambda x: str(x), record)
+        str_record.insert(0, None)
+        print str_record
+        g.db.execute('INSERT INTO entries VALUES (?,?,?,?,?,?,?)', str_record)
+        g.db.commit()
+        
+
+
+
+        
