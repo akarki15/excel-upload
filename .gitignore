@@ -3,3 +3,9 @@
 *.pyc
 .sass-cache
 *.db
+*.swo
+*.swp
+*.egg-info
+build
+dist
+venv
