@@ -2,20 +2,27 @@
 
 {% block body %}
 <div class="container" style="margin-top:50px">
-    <div class="hero-unit">
+    <div class="jumbotron">
         <h3>Upload Excel File</h3>
+        <p>
          <form action="{{ url_for('upload') }}" method=post enctype="multipart/form-data" >
         {{ form.hidden_tag() }}                
                 
         {{ form.file }}             
-        
+        <br>
         {{ form.submit }}
         </form>    
+        <br>
         {% for message in form.file.errors %}
-            <span class="label label-important">{{ message }}</span>
+            <span class="label label-danger">{{ message }}</span>
         {% endfor %}
-    
+    </p>    
     </div>
 
 </div>
+
+
+
 {% endblock %}
+
+

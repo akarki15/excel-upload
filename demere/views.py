@@ -10,8 +10,7 @@ import pyexcel.ext.xls # import it to handle xls file
 
 # Routes stuff        
 @demere.route('/' , methods=['GET','POST'])
-def upload():     
-    print "route"  
+def upload():         
     form = upload_excel()       
     if request.method == 'POST':        
         if form.validate() == False:                        
@@ -21,7 +20,7 @@ def upload():
             excel_data = read_excel(file)  
             # write the excel data to sqlite db
             write_to_db(excel_data)               
-            return redirect(url_for(list_uploads))
+            return redirect(url_for('list_uploads'))
     elif request.method == 'GET':
         return render_template('index.html', form=form)    
 
