@@ -12,3 +12,5 @@
 - Run the python server: `python server.py`
 - The server should be now running at `http://45.55.92.219:5000/`
 
+### Test uploads:
+- Folder `test uploads` contains sample excel files that can be uploaded to the website. Instead of actual image links, I have used sample blank images from `placehold.it`
