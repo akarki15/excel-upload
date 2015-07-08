@@ -1,7 +1,7 @@
 # demere
 
 ### Live preview:
-- You can view the webapp running at my private server. Go to this url: http://45.55.92.219:5000/
+- You can view the webapp running at my private server. Go to this url: http://45.55.92.219/
 
 ### Setup:
 - Clone this repo. 
